@@ -26,10 +26,13 @@ namespace Lurker
         public PostPage()
         {
             this.InitializeComponent();
+            clvm = new CommentListViewModel();
         }
+
+        public CommentListViewModel clvm { get; set; }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var post = e.Parameter as PostViewModel;
 
         }
     }

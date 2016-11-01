@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lurker.Models
 {
-    class RedditCommentTree
+    public class RedditCommentTree
     {
         public class MediaEmbed
         {
