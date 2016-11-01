@@ -57,7 +57,7 @@ namespace Lurker.Data
         //[/r/subreddit]/comments/articleid.json
         public async Task<List<RedditComment>> getComments(String subreddit, String postId)
         {
-            Uri requestUri = new Uri(reddit +"/r/" +subreddit + "/comments/" + postId + ".json");
+            Uri requestUri = new Uri(reddit + "/r/" + subreddit + "/comments/" + postId + ".json");
 
             return parseCommentTreeResponse(await doRequest(requestUri));
         }
@@ -211,147 +211,166 @@ namespace Lurker.Data
             //the response is actually an array, the first object is post data, the second is the comment tree. Restructure the response all the way back to the viewmodel, THEN grab the comment tree.
 
             List<RedditComment> comments = new List<RedditComment>();
-            JsonObject top = JsonValue.Parse(jsonString).GetObject();//this is actually an array
+            JsonObject top = JsonValue.Parse(jsonString).GetArray().GetObjectAt(1);//this is actually an array
             JsonObject mid = top.GetNamedObject("data");
             JsonArray arr = mid.GetNamedArray("children");
             for (uint i = 0; i < arr.Count; i++)
             {
                 JsonObject entry = arr.GetObjectAt(i).GetNamedObject("data");
-                bool lcontest_mode = entry.GetNamedBoolean("contest_mode");
-                bool larchived = entry.GetNamedBoolean("archived");
-                bool lsaved = entry.GetNamedBoolean("saved");
-                bool lclicked = entry.GetNamedBoolean("clicked");
-                bool lscore_hidden = entry.GetNamedBoolean("score_hidden");
-                bool lhidden = entry.GetNamedBoolean("hidden");
-                bool lvisited = entry.GetNamedBoolean("visited");
-                bool lquarantine = entry.GetNamedBoolean("quarantine");
-                bool llocked = entry.GetNamedBoolean("locked");
-                bool lstickied = entry.GetNamedBoolean("stickied");
-                bool lover_18 = entry.GetNamedBoolean("over_18");
-                bool lis_self = entry.GetNamedBoolean("is_self");
-                bool lhide_score = entry.GetNamedBoolean("hide_score");
-                bool lspoiler = entry.GetNamedBoolean("spoiler");
-                //object lbanned_by = entry.GetNamedObject("banned_by");
-                //object lselftext_html = entry.GetNamedObject("selftext_html");
-                //object llikes = entry.GetNamedObject("likes");
-                //object lsuggested_sort = entry.GetNamedObject("suggested_sort");
-                //object lsecure_media = entry.GetNamedObject("secure_media");
-                //object lreport_reasons = entry.GetNamedObject("report_reasons");
-                //object llink_flair_text = entry.GetNamedObject("link_flair_text");
-                //object lnum_reports = entry.GetNamedObject("num_reports");
-                //object ldistinguished = entry.GetNamedObject("distinguished");
-                //object lremoval_reason = entry.GetNamedObject("removal_reason");
-                //object lreplies = entry.GetNamedObject("replies");
-                //object lmedia = entry.GetNamedObject("media");
-                //object lapproved_by = entry.GetNamedObject("approved_by");
-                //object ledited = entry.GetNamedObject("edited");
-                //object llink_flair_css_class = entry.GetNamedObject("link_flair_css_class");
-                //objeclt media_embed = entry.GetNamedObject("media_embed");
-                string lsubreddit = entry.GetNamedString("subreddit");
-                string lselftext = entry.GetNamedString("selftext");
-                string lname = entry.GetNamedString("name");
-                string lid = entry.GetNamedString("id");
-                string llink_id = entry.GetNamedString("link_id");
-                string lauthor = entry.GetNamedString("author");
-                string lurl = entry.GetNamedString("url");
-                string lparent_id = entry.GetNamedString("parent_id");
-                string lbody = entry.GetNamedString("body");
-                string lbody_html = entry.GetNamedString("body_html");
-                string lauthor_flair_css_class = entry.GetNamedString("author_flair_css_class");
-                string ldomain = entry.GetNamedString("domain");
-                string lauthor_flair_text = entry.GetNamedString("author_flair_text");
-                string ltitle = entry.GetNamedString("title");
-                string lthumbnail = entry.GetNamedString("thumbnail");
-                string lpost_hint = entry.GetNamedString("post_hint");
-                string lpermalink = entry.GetNamedString("permalink");
-                string lsubreddit_id = entry.GetNamedString("subreddit_id");
-                double lups = entry.GetNamedNumber("ups");
-                double ldowns = entry.GetNamedNumber("downs");
-                double lcontroversiality = entry.GetNamedNumber("controversiality");
-                double lcount = entry.GetNamedNumber("count");
-                double lgilded = entry.GetNamedNumber("gilded");
-                double lscore = entry.GetNamedNumber("score");
-                double lnum_comments = entry.GetNamedNumber("num_comments");
-                double lupvote_ratio = entry.GetNamedNumber("upvote_ratio");
-                double lcreated = entry.GetNamedNumber("created");
-                double lcreated_utc = entry.GetNamedNumber("created_utc");
 
-
-
-
-                //public SecureMediaEmbed secure_media_embed { get; set; }
-                //public List<object> mod_reports { get; set; }
-                //public List<object> user_reports { get; set; }
-                //public Preview preview { get; set; }
-
-                //public List<string> children { get; set; }
-
-                var redditComment = new RedditComment
-                {
-                    contest_mode = lcontest_mode,
-                    archived = larchived,
-                    saved = lsaved,
-                    clicked = lclicked,
-                    score_hidden = lscore_hidden,
-                    hidden = lhidden,
-                    visited = lvisited,
-                    quarantine = lquarantine,
-                    locked = llocked,
-                    stickied = lstickied,
-                    over_18 = lover_18,
-                    is_self = lis_self,
-                    hide_score = lhide_score,
-
-                    //banned_by = lbanned_by,
-                    //selftext_html = lselftext_html,
-                    //likes = llikes,
-                    //suggested_sort = lsuggested_sort,
-                    //secure_media = lsecure_media,
-                    //report_reasons = lreport_reasons,
-                    //link_flair_text = llink_flair_text,
-                    //num_reports = lnum_reports,
-                    //distinguished = ldistinguished,
-                    //removal_reason = lremoval_reason,
-                    //replies = lreplies,
-                    //media = lmedia,
-                    //approved_by = lapproved_by,
-                    //edited = ledited,
-                    //link_flair_css_class = llink_flair_css_class,
-                    //media_embed = lmedia_embed,
-                    subreddit = lsubreddit,
-                    selftext = lselftext,
-                    name = lname,
-                    id = lid,
-                    link_id = llink_id,
-                    author = lauthor,
-                    url = lurl,
-                    parent_id = lparent_id,
-                    body = lbody,
-                    body_html = lbody_html,
-                    author_flair_css_class = lauthor_flair_css_class,
-                    domain = ldomain,
-                    author_flair_text = lauthor_flair_text,
-                    title = ltitle,
-                    thumbnail = lthumbnail,
-                    post_hint = lpost_hint,
-                    permalink = lpermalink,
-                    subreddit_id = lsubreddit_id,
-                    ups = lups,
-                    downs = ldowns,
-                    controversiality = lcontroversiality,
-                    count = lcount,
-                    gilded = lgilded,
-                    score = lscore,
-                    num_comments = lnum_comments,
-                    upvote_ratio = lupvote_ratio,
-                    created = lcreated,
-                    created_utc = lcreated_utc
-
-
-                };
+                var redditComment = BuildComment(entry);
                 comments.Add(redditComment);
             }
             return comments;
+        }
+
+        private RedditComment BuildComment(JsonObject entry)
+        {
+            Dictionary<String, object> stuff = new Dictionary<string, object>();
+            List<String> keys = new List<String> { };
+            string _author_flair_css_class, _subreddit_id, _link_id, _author, _parent_id, _body, _id, _name, _body_html, _subreddit, _author_flair_text;
+            bool _saved, _archived, _score_hidden, _stickied;
+            double _score, _gilded, _controversiality, _downs, _created, _created_utc, _ups, _count;
+            getJsonValue(entry, "author_flair_css_class", out _author_flair_css_class);
+            getJsonValue(entry, "subreddit_id", out _subreddit_id);
+            getJsonValue(entry, "link_id", out _link_id);
+            getJsonValue(entry, "author", out _author);
+            getJsonValue(entry, "parent_id", out _parent_id);
+            getJsonValue(entry, "body", out _body);
+            getJsonValue(entry, "id", out _id);
+            getJsonValue(entry, "name", out _name);
+            getJsonValue(entry, "body_html", out _body_html);
+            getJsonValue(entry, "subreddit", out _subreddit);
+            getJsonValue(entry, "author_flair_text", out _author_flair_text);
+            getJsonValue(entry, "saved", out _saved);
+            getJsonValue(entry, "out_archived", out _archived);
+            getJsonValue(entry, "score_hidden", out _score_hidden);
+            getJsonValue(entry, "stickied", out _stickied);
+            getJsonValue(entry, "score", out _score);
+            getJsonValue(entry, "gilded", out _gilded);
+            getJsonValue(entry, "controversiality", out _controversiality);
+            getJsonValue(entry, "downs", out _downs);
+            getJsonValue(entry, "created", out _created);
+            getJsonValue(entry, "created_utc", out _created_utc);
+            getJsonValue(entry, "ups", out _ups);
+            getJsonValue(entry, "count", out _count);
+
+            bool success;
+            IJsonValue _dump;
+            success = entry.TryGetValue("replies", out _dump);
+            JsonArray jsonReplies = null;
+            //handling the inconsistent returns of reddit's api
+            if (success && _dump.GetType().Equals(JsonValueType.Object))
+            {
+                JsonObject _repliesObject = entry.GetNamedObject("replies");
+
+                success = _repliesObject.TryGetValue("data", out _dump);
+                if (success && _dump.GetType().Equals(JsonValueType.Object))
+                {
+                    JsonObject _dataObject = _repliesObject.GetNamedObject("data");
+
+                    success = _dataObject.TryGetValue("children", out _dump);
+                    if (success && _dump.GetType().Equals(JsonValueType.Array)){
+                        jsonReplies = _dataObject.GetNamedArray("children");
+                    }
+
+
+                }
+            }
+
+
+            List<RedditComment> _replies = new List<RedditComment>();
+            if (jsonReplies != null)
+            {
+                for (uint j = 0; j < jsonReplies.Count; j++)
+                {
+                    string kind = jsonReplies.GetObjectAt(j).GetNamedString("kind");
+                    if (!kind.Equals("more"))
+                    {
+                        JsonObject reply = jsonReplies.GetObjectAt(j).GetNamedObject("data");
+                        RedditComment comment = BuildComment(reply);
+                        _replies.Add(comment);
+                    }
+                }
+
+            }
+
+
+            return new RedditComment
+            {
+                subreddit_id = _subreddit_id,
+                link_id = _link_id,
+                author = _author,
+                parent_id = _parent_id,
+                body = _body,
+                id = _id,
+                name = _name,
+                author_flair_css_class = _author_flair_css_class,
+                body_html = _body_html,
+                subreddit = _subreddit,
+                author_flair_text = _author_flair_text,
+                saved = _saved,
+                archived = _archived,
+                score_hidden = _score_hidden,
+                stickied = _stickied,
+                score = _score,
+                gilded = _gilded,
+                controversiality = _controversiality,
+                downs = _downs,
+                created = _created,
+                created_utc = _created_utc,
+                ups = _ups,
+                count = _count,
+                replies = _replies
+            };
+        }
+
+        private void getJsonValue(JsonObject source, string key, out bool value)
+        {
+            value = false;
+
+            IJsonValue _value;
+            if (source.TryGetValue(key, out _value))
+            {
+                JsonValueType t = _value.ValueType;
+                if (t == JsonValueType.Boolean)
+                    value = source.GetNamedBoolean(key);
+            }
+
+
+
+
+
+
+        }
+        private void getJsonValue(JsonObject source, string key, out string value)
+        {
+            value = "";
+            IJsonValue _value;
+
+
+            if (source.TryGetValue(key, out _value))
+            {
+                JsonValueType t = _value.ValueType;
+                if (t == JsonValueType.String)
+                    value = source.GetNamedString(key);
+            }
+
+
+
+        }
+        private void getJsonValue(JsonObject source, string key, out double value)
+        {
+            value = 0;
+
+            IJsonValue _value;
+            if (source.TryGetValue(key, out _value))
+            {
+                JsonValueType t = _value.ValueType;
+                if (t == JsonValueType.Number)
+                    value = source.GetNamedNumber(key);
+            }
+
         }
     }
 }
