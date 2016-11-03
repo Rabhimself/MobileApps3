@@ -13,22 +13,27 @@ namespace Lurker.ViewModels
     {
         RedditCommentTree t3 = new RedditCommentTree();
 
-        public CommentListViewModel()
+        public CommentListViewModel(String subreddit, String id)
         {
 
             _SelectedIndex = -1;
-            init();
+            init(subreddit, id);
 
         }
-        public async void init()
+        public async void init(String subreddit, String id)
         {
             RedditSession reddit = new RedditSession();
-            List<RedditComment> comments = await reddit.getComments("television", "5agmik");
+            List<RedditComment> comments = await reddit.getComments(subreddit, id);
 
             foreach (var comment in comments)
-            {
-                
+            { 
                 var np = new CommentViewModel(comment);
+                np.replies = new List<CommentViewModel>();
+                foreach(var reply in comment.replies)
+                {
+                    var nr = new CommentViewModel(reply);
+                    np.replies.Add(nr);
+                }
                 Comments.Add(np);
             }
         }

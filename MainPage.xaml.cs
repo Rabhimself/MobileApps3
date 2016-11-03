@@ -29,14 +29,11 @@ namespace Lurker
             this.InitializeComponent();
             plvm = new PostListViewModel();
             MainList.SelectionChanged += MainList_SelectionChanged;
-
-
         }
 
         private void MainList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PostViewModel stuff = (PostViewModel)e.AddedItems.First();
-            
+            PostViewModel stuff = (PostViewModel)e.AddedItems.First();           
         }
 
         public PostListViewModel plvm { get; set; }

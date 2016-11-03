@@ -259,18 +259,19 @@ namespace Lurker.Data
             IJsonValue _dump;
             success = entry.TryGetValue("replies", out _dump);
             JsonArray jsonReplies = null;
+            
             //handling the inconsistent returns of reddit's api
-            if (success && _dump.GetType().Equals(JsonValueType.Object))
+            if (success && _dump.ValueType.Equals(JsonValueType.Object))
             {
                 JsonObject _repliesObject = entry.GetNamedObject("replies");
 
                 success = _repliesObject.TryGetValue("data", out _dump);
-                if (success && _dump.GetType().Equals(JsonValueType.Object))
+                if (success && _dump.ValueType.Equals(JsonValueType.Object))
                 {
                     JsonObject _dataObject = _repliesObject.GetNamedObject("data");
 
                     success = _dataObject.TryGetValue("children", out _dump);
-                    if (success && _dump.GetType().Equals(JsonValueType.Array)){
+                    if (success && _dump.ValueType.Equals(JsonValueType.Array)){
                         jsonReplies = _dataObject.GetNamedArray("children");
                     }
 

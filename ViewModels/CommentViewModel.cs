@@ -127,13 +127,13 @@ namespace Lurker.ViewModels
             get { return This.count; }
             set { SetProperty(This.count, value, () => This.count = value); }
         }
-        public List<RedditComment> replies
-        {
-            get { return This.replies; }
-            set { SetProperty(This.replies, value, () => This.replies = value); }
-        }
+        //public List<RedditComment> rawReplies
+        //{
+        //    get { return This.replies; }
+        //    set { SetProperty(This.replies, value, () => This.replies = value); }
+        //}
 
-
+        public List<CommentViewModel> replies{ get; set; }
         //public object edited { get; set; }
         //public object num_reports { get; set; }
         //public object distinguished { get; set; }

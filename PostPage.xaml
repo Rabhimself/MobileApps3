@@ -9,13 +9,24 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView  x:Name="MainList" ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}"  SelectedIndex="{x:Bind clvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" Margin="5">
+        <ListView  x:Name="MainList" ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" MinWidth="250" Margin="5">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:CommentViewModel" >
                     <StackPanel>
                         <TextBlock Text="{x:Bind author, Mode=OneWay}" />
                         <TextBlock Text="{x:Bind body, Mode=OneWay}" />
                         <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                        <ListView ItemsSource="{x:Bind replies, Mode=OneWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate  x:DataType="viewModels:CommentViewModel">
+                                    <StackPanel Background="Aqua" Margin="15,0,0,0">
+                                        <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                                        <TextBlock Text="{x:Bind body, Mode=OneWay}" />
+                                        <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
