@@ -26,15 +26,14 @@ namespace Lurker.ViewModels
             List<RedditComment> comments = await reddit.getComments(subreddit, id);
 
             foreach (var comment in comments)
-            { 
+            {
                 var np = new CommentViewModel(comment);
                 np.replies = new List<CommentViewModel>();
                 foreach(var reply in comment.replies)
                 {
-                    var nr = new CommentViewModel(reply);
-                    np.replies.Add(nr);
+                    np.replies.Add(NestReplies(reply));
                 }
-                Comments.Add(np);
+                _Comments.Add(np);
             }
         }
 
@@ -55,6 +54,16 @@ namespace Lurker.ViewModels
         {
             get { return (_SelectedIndex >= 0) ? _Comments[_SelectedIndex] : null; }
         }
+        private CommentViewModel NestReplies(RedditComment c)
+        {
 
+            CommentViewModel ncvm = new CommentViewModel(c);
+            ncvm.replies = new List<CommentViewModel>();
+            foreach (var reply in c.replies)
+            {              
+                ncvm.replies.Add(NestReplies(reply));
+            }
+            return ncvm;
+        }
     }
 }
