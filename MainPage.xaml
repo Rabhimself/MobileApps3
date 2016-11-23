@@ -29,6 +29,7 @@
                             <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                             <TextBlock Text="{x:Bind author, Mode=OneWay}" />
                             <Button Content="{x:Bind num_comments, Mode=OneWay}" Click="CommentsClick"/>
+                            <Button Content="Link" Tag="{x:Bind url, Mode=OneTime}" Click="FollowLink"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

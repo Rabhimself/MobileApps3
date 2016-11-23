@@ -1,5 +1,4 @@
-﻿using Lurker.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,22 +21,20 @@ namespace Lurker
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PostPage : Page
+    public sealed partial class URLPage : Page
     {
-        public PostPage()
+        public URLPage()
         {
             this.InitializeComponent();
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
-    App_BackRequested;
-        }
 
-        public CommentListViewModel clvm { get; set; }
-        public CommentListViewModel rlvm { get; set; }
-        public PostViewModel pvm { get; set; }
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            pvm = (PostViewModel)e.Parameter;
-            clvm = new CommentListViewModel(pvm.permalink, pvm.id);
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
+App_BackRequested;
+            string url = e.Parameter as string;
+            MainWebView.Navigate(new Uri(url));
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame.CanGoBack)
@@ -52,17 +49,6 @@ namespace Lurker
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            String tag = (String)((Button)sender).Tag;
-            rlvm = new CommentListViewModel(pvm.permalink, tag);
-            Binding b = new Binding();
-            b.Source = rlvm.Comments;
-            b.Mode = BindingMode.OneWay;
-            RepliesListView.SetBinding( ListView.ItemsSourceProperty, b);
-            RepliesListView.Width = 400; 
         }
 
         private void App_BackRequested(object sender,

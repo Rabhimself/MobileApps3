@@ -30,6 +30,8 @@ namespace Lurker
             this.InitializeComponent();
             plvm = new PostListViewModel();
             MainList.SelectionChanged += MainList_SelectionChanged;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
+App_BackRequested;
 
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame.CanGoBack)
@@ -65,6 +67,28 @@ namespace Lurker
         {
             plvm = new PostListViewModel(SubredditSearchBox.Text);
             Bindings.Update();
+        }
+
+        private void FollowLink(object sender, RoutedEventArgs e)
+        {
+            String tag = (String)((Button)sender).Tag;
+            Frame.Navigate(typeof(URLPage), tag);
+        }
+
+        private void App_BackRequested(object sender,
+    Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+
+            // Navigate back if possible, and if the event has not 
+            // already been handled .
+            if (rootFrame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
         }
     }
 }
