@@ -9,17 +9,30 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView  x:Name="MainList" ItemsSource="{x:Bind plvm.Posts, Mode=OneWay}"  SelectedIndex="{x:Bind plvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" Margin="5">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewModels:PostViewModel" >
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind title, Mode=OneWay}" />
-                        <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                        <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                        <Button Content="{x:Bind num_comments, Mode=OneWay}" Click="CommentsClick"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox Text="Find a subreddit" Height="18" x:Name="SubredditSearchBox"/>
+            <Button Content="GO" Click="Subreddit_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <ListView  x:Name="MainList" ItemsSource="{x:Bind plvm.Posts, Mode=OneWay}"  SelectedIndex="{x:Bind plvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" Margin="5">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:PostViewModel" >
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind title, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                            <Button Content="{x:Bind num_comments, Mode=OneWay}" Click="CommentsClick"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

@@ -61,5 +61,10 @@ namespace Lurker
             Frame.Navigate(typeof(PostPage), pvm);
         }
 
+        private void Subreddit_Click(object sender, RoutedEventArgs e)
+        {
+            plvm = new PostListViewModel(SubredditSearchBox.Text);
+            Bindings.Update();
+        }
     }
 }

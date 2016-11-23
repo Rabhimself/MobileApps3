@@ -47,9 +47,16 @@ namespace Lurker.Data
                     cat = "/controversial";
                     break;
                 default:
+                    cat = "/hot";
                     break;
             }
-            Uri requestUri = new Uri(reddit + subreddit + cat + ".json");
+            string url;
+            if (subreddit == "")
+                url = reddit + cat + ".json";
+            else
+                url = reddit + "/r/"+subreddit + cat + ".json";
+
+            Uri requestUri = new Uri(url);
 
             return parseT3Response(await doRequest(requestUri));
         }

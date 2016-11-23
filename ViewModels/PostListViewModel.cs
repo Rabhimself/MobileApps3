@@ -19,13 +19,24 @@ namespace Lurker.ViewModels
              
             _SelectedIndex = -1;
             // Use the model to return a task?
-            init();
+            init("");
             
         }
-        public async void init()
+        public PostListViewModel(String subreddit)
+        {
+
+            _SelectedIndex = -1;
+            // Use the model to return a task?
+            init(subreddit);
+
+        }
+        public async void init(String subreddit)
         {
             RedditSession reddit = new RedditSession();
-            List<Post> posts = await reddit.getPosts("",RedditSession.cats.FRONT);
+            var cat = RedditSession.cats.HOT;
+
+
+            List<Post> posts = await reddit.getPosts(subreddit,cat);
 
             foreach (var post in posts)
             {

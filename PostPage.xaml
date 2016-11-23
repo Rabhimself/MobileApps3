@@ -32,7 +32,7 @@
                             <StackPanel>
                                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                                     <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
                                     <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                                 </StackPanel>
                                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
