@@ -8,31 +8,48 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.Resources>
+        <Style TargetType="ListViewItem" x:Key="ListViewOverride">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="15,0,0,0">
+            </Setter>
+        </Style>
         <DataTemplate x:Key="CommentTemplate" x:DataType="viewModels:CommentViewModel" >
             <StackPanel>
-                <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind body, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}">
+                <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                    <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                </StackPanel>
+                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                             <StackPanel>
-                                <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                <TextBlock Text="{x:Bind body, Mode=OneWay}" />
-                                <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}">
+                                <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
+                                    <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                                    <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                                </StackPanel>
+                                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                                             <StackPanel>
-                                                <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                <TextBlock Text="{x:Bind body, Mode=OneWay}" />
-                                                <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                                                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}">
+                                                <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
+                                                    <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                                                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" />
+                                                    <TextBlock Text="{x:Bind score, Mode=OneWay}" />
+                                                </StackPanel>
+                                                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
-                                                            <StackPanel>
+                                                            <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                                                                 <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                                <TextBlock Text="{x:Bind body, Mode=OneWay}" />
+                                                                <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
                                                                 <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                                                                 <Button Tag="{x:Bind id, Mode=OneWay}" Click="Button_Click" Content="More Comments" />
                                                             </StackPanel>
@@ -51,12 +68,35 @@
         </DataTemplate>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" 
+                    Grid.Column="0">
+            <TextBlock Text="{x:Bind pvm.subreddit, Mode=OneWay}"></TextBlock>
+            <TextBlock Text="{x:Bind pvm.score, Mode=OneWay}"></TextBlock>
+            <TextBlock Text="{x:Bind pvm.title, Mode=OneWay}"></TextBlock>
+            <TextBlock Text="{x:Bind pvm.selftext, Mode=OneWay}"></TextBlock>
         </StackPanel>
-        <RelativePanel>
-            <ListView Width="500"  x:Name="MainList" ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" MinWidth="250" Margin="5" ItemTemplate="{StaticResource CommentTemplate}">
-            </ListView>
-            <ListView Background="Red" ItemsSource="{x:Bind rlvm.Comments, Mode=OneWay}" RelativePanel.AlignRightWithPanel="True" RelativePanel.RightOf="MainList" ItemTemplate="{StaticResource CommentTemplate}">
+
+        <RelativePanel x:Name="RelPanel" Grid.Row="1" Grid.Column="0" >
+            <ListView x:Name="MainList" 
+                      ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" 
+                      Margin="5" 
+                      MaxWidth="800"
+                      ItemTemplate="{StaticResource CommentTemplate}"  
+                      ItemContainerStyle="{StaticResource ListViewOverride}" 
+                      SelectionMode="None">
+                </ListView>
+            <ListView x:Name="RepliesListView"                    
+                      RelativePanel.RightOf="MainList" 
+                      ItemTemplate="{StaticResource CommentTemplate}" 
+                      ItemContainerStyle="{StaticResource ListViewOverride}" 
+                      SelectionMode="None">
             </ListView>
         </RelativePanel>
     </Grid>
