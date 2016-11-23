@@ -26,15 +26,22 @@ namespace Lurker
         public PostPage()
         {
             this.InitializeComponent();
-            
+
         }
 
         public CommentListViewModel clvm { get; set; }
-
+        public CommentListViewModel rlvm { get; set; }
+        private PostViewModel pvm;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            PostViewModel pvm = (PostViewModel)e.Parameter;
-            clvm = new CommentListViewModel(pvm.subreddit, pvm.id);
+            pvm = (PostViewModel)e.Parameter;
+            clvm = new CommentListViewModel(pvm.permalink, pvm.id);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            String myValue = (String)((Button)sender).Tag;
+            rlvm = new CommentListViewModel(pvm.permalink, myValue);     
         }
     }
 }

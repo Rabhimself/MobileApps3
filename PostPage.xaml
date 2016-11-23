@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="asdf" x:DataType="viewModels:CommentViewModel" >
+        <DataTemplate x:Key="CommentTemplate" x:DataType="viewModels:CommentViewModel" >
             <StackPanel>
                 <TextBlock Text="{x:Bind author, Mode=OneWay}" />
                 <TextBlock Text="{x:Bind body, Mode=OneWay}" />
@@ -34,17 +34,7 @@
                                                                 <TextBlock Text="{x:Bind author, Mode=OneWay}" />
                                                                 <TextBlock Text="{x:Bind body, Mode=OneWay}" />
                                                                 <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                                                                <ListView ItemsSource="{x:Bind replies, Mode=OneWay}">
-                                                                    <ListView.ItemTemplate>
-                                                                        <DataTemplate x:DataType="viewModels:CommentViewModel" >
-                                                                            <StackPanel>
-                                                                                <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                                                <TextBlock Text="{x:Bind body, Mode=OneWay}" />
-                                                                                <TextBlock Text="{x:Bind score, Mode=OneWay}" />
-                                                                            </StackPanel>
-                                                                        </DataTemplate>
-                                                                    </ListView.ItemTemplate>
-                                                                </ListView>
+                                                                <Button Tag="{x:Bind id, Mode=OneWay}" Click="Button_Click" Content="More Comments" />
                                                             </StackPanel>
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
@@ -62,10 +52,12 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBlock Text="{x:Bind pvm.}"></TextBlock>
         </StackPanel>
-        <ListView  x:Name="MainList" ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" MinWidth="250" Margin="5" ItemTemplate="{StaticResource asdf}">
-            
-        </ListView>
+        <RelativePanel>
+            <ListView Width="500"  x:Name="MainList" ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" MinWidth="250" Margin="5" ItemTemplate="{StaticResource CommentTemplate}">
+            </ListView>
+            <ListView Background="Red" ItemsSource="{x:Bind rlvm.Comments, Mode=OneWay}" RelativePanel.AlignRightWithPanel="True" RelativePanel.RightOf="MainList" ItemTemplate="{StaticResource CommentTemplate}">
+            </ListView>
+        </RelativePanel>
     </Grid>
 </Page>

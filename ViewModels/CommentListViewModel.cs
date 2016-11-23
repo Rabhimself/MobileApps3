@@ -13,23 +13,46 @@ namespace Lurker.ViewModels
     {
         RedditCommentTree t3 = new RedditCommentTree();
 
-        public CommentListViewModel(String subreddit, String id)
+        public CommentListViewModel(String permalink)
         {
 
             _SelectedIndex = -1;
-            init(subreddit, id);
+            init(permalink);
 
         }
-        public async void init(String subreddit, String id)
+        public CommentListViewModel(String permalink, String commentId)
+        {
+
+            _SelectedIndex = -1;
+            init(permalink, commentId);
+
+        }
+        public async void init(String permalink)
         {
             RedditSession reddit = new RedditSession();
-            List<RedditComment> comments = await reddit.getComments(subreddit, id);
+            List<RedditComment> comments = await reddit.getComments(permalink);
 
             foreach (var comment in comments)
             {
                 var np = new CommentViewModel(comment);
                 np.replies = new List<CommentViewModel>();
                 foreach(var reply in comment.replies)
+                {
+                    np.replies.Add(NestReplies(reply));
+                }
+                _Comments.Add(np);
+            }
+        }
+        public async void init(String permalink, String commentId)
+        {
+            RedditSession reddit = new RedditSession();
+            List<RedditComment> comments = await reddit.getComments(permalink, commentId);
+
+            foreach (var comment in comments)
+            {
+                var np = new CommentViewModel(comment);
+                np.replies = new List<CommentViewModel>();
+                foreach (var reply in comment.replies)
                 {
                     np.replies.Add(NestReplies(reply));
                 }

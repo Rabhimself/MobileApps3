@@ -43,8 +43,6 @@ namespace Lurker
             //var post = (PostViewModel)MainList.SelectedItems.First();
             Button b = (Button)e.OriginalSource;
             PostViewModel pvm = (PostViewModel)b.DataContext;
-            var sub = pvm.subreddit;
-            var id = pvm.id;
             Frame.Navigate(typeof(PostPage), pvm);
         }
 

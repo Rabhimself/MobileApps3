@@ -19,7 +19,7 @@ namespace Lurker.Data
     //    /sort
     class RedditSession
     {
-        private const string reddit = "http://www.reddit.com/";
+        private const string reddit = "http://www.reddit.com";
         public enum cats { HOT, NEW, RAND, TOP, CONTROV, FRONT };
 
         public async Task<List<Post>> getPosts(String subreddit, cats g)
@@ -55,13 +55,18 @@ namespace Lurker.Data
         }
 
         //[/r/subreddit]/comments/articleid.json
-        public async Task<List<RedditComment>> getComments(String subreddit, String postId)
+        public async Task<List<RedditComment>> getComments(String permalink)
         {
-            Uri requestUri = new Uri(reddit + "/r/" + subreddit + "/comments/" + postId + ".json");
+            Uri requestUri = new Uri(reddit + permalink+ ".json?limit=100&depth=4");
 
             return parseCommentTreeResponse(await doRequest(requestUri));
         }
+        public async Task<List<RedditComment>> getComments(String permalink, String commentId)
+        {
+            Uri requestUri = new Uri(reddit + permalink +commentId +".json");
 
+            return parseCommentTreeResponse(await doRequest(requestUri));
+        }
         private async Task<String> doRequest(Uri requestUri)
         {
             //Create an HTTP client object
@@ -132,6 +137,7 @@ namespace Lurker.Data
                 string lsubreddit_id = entry.GetNamedString("subreddit_id");
                 string ltitle = entry.GetNamedString("title");
                 string lthumbnail = entry.GetNamedString("thumbnail");
+                string lpermalink = entry.GetNamedString("permalink");
                 double ldowns = entry.GetNamedNumber("downs");
                 double lnum_comments = entry.GetNamedNumber("num_comments");
                 double lscore = entry.GetNamedNumber("score");
@@ -156,6 +162,7 @@ namespace Lurker.Data
                 //object lremoval_reason = entry.GetNamedObject("removal_reason");
                 var post = new Post
                 {
+                    permalink = lpermalink,
                     contest_mode = lcontest_mode,
                     archived = larchived,
                     is_self = lis_self,
@@ -223,7 +230,23 @@ namespace Lurker.Data
             }
             return comments;
         }
+        private List<RedditComment> parseRepliesTreeResponse(String jsonString)
+        {
+            //the response is actually an array, the first object is post data, the second is the comment tree. Restructure the response all the way back to the viewmodel, THEN grab the comment tree.
 
+            List<RedditComment> comments = new List<RedditComment>();
+            JsonObject top = JsonValue.Parse(jsonString).GetArray().GetObjectAt(1);//this is actually an array
+            JsonObject mid = top.GetNamedObject("data");
+            JsonArray arr = mid.GetNamedArray("children");
+            for (uint i = 0; i < arr.Count; i++)
+            {
+                JsonObject entry = arr.GetObjectAt(i).GetNamedObject("data");
+
+                var redditComment = BuildComment(entry);
+                comments.Add(redditComment);
+            }
+            return comments;
+        }
         private RedditComment BuildComment(JsonObject entry)
         {
             Dictionary<String, object> stuff = new Dictionary<string, object>();
