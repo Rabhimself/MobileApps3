@@ -23,33 +23,36 @@
             <StackPanel>
                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                     <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                    <TextBlock Text="{x:Bind body, Mode=OneWay}" Margin="0,0,25,0" TextWrapping="Wrap"/>
                     <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                 </StackPanel>
+                <Button Click="Minimize">_</Button>
                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                             <StackPanel>
                                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                                     <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0"/>
                                     <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                                 </StackPanel>
+                                <Button Click="Minimize">_</Button>
                                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                                             <StackPanel>
                                                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                                                     <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" />
+                                                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0" />
                                                     <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                                                 </StackPanel>
+                                                <Button Click="Minimize">_</Button>
                                                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                                                             <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
                                                                 <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                                <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"/>
+                                                                <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0"/>
                                                                 <TextBlock Text="{x:Bind score, Mode=OneWay}" />
                                                                 <Button Tag="{x:Bind id, Mode=OneWay}" Click="Button_Click" Content="More Comments" />
                                                             </StackPanel>
@@ -83,7 +86,7 @@
             <TextBlock Text="{x:Bind pvm.selftext, Mode=OneWay}"></TextBlock>
         </StackPanel>
 
-        <RelativePanel x:Name="RelPanel" Grid.Row="1" Grid.Column="0" >
+        <RelativePanel x:Name="RelPanel" Grid.Row="1" Grid.Column="0">
             <ListView x:Name="MainList" 
                       ItemsSource="{x:Bind clvm.Comments, Mode=OneWay}" 
                       Margin="5" 

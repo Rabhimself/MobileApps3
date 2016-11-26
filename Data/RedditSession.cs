@@ -17,16 +17,17 @@ namespace Lurker.Data
     //    /random
     //    /top
     //    /sort
+    public enum cats { HOT, NEW, RAND, TOP, CONTROV, FRONT };
     class RedditSession
     {
         private const string reddit = "http://www.reddit.com";
-        public enum cats { HOT, NEW, RAND, TOP, CONTROV, FRONT };
+       
 
-        public async Task<List<Post>> getPosts(String subreddit, cats g)
+        public async Task<List<Post>> getPosts(Request r)
         {
 
             string cat = null;
-            switch (g)
+            switch (r.cat)
             {
                 case cats.FRONT:
                     cat = "/";
@@ -50,11 +51,13 @@ namespace Lurker.Data
                     cat = "/hot";
                     break;
             }
-            string url;
-            if (subreddit == "")
-                url = reddit + cat + ".json";
-            else
-                url = reddit + "/r/"+subreddit + cat + ".json";
+            string url = reddit + r.subreddit + cat + ".json";            
+            if (r.before != null)
+                url += "?before=" + r.before;
+            if (r.after != null)
+                url += "?after=" + r.after;
+
+
 
             Uri requestUri = new Uri(url);
 

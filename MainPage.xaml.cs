@@ -1,4 +1,5 @@
-﻿using Lurker.Models;
+﻿using Lurker.Data;
+using Lurker.Models;
 using Lurker.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,16 @@ namespace Lurker
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private String firstPage;
+
         public MainPage()
         {
             this.InitializeComponent();
-            plvm = new PostListViewModel();
+            Request r = new Request {subreddit=""};
+            plvm = new PostListViewModel(r);
+            PreviousPageButton.Visibility = Visibility.Collapsed;
             MainList.SelectionChanged += MainList_SelectionChanged;
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
-App_BackRequested;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
 
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame.CanGoBack)
@@ -46,6 +50,7 @@ App_BackRequested;
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
             }
+            
         }
 
         private void MainList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -65,7 +70,8 @@ App_BackRequested;
 
         private void Subreddit_Click(object sender, RoutedEventArgs e)
         {
-            plvm = new PostListViewModel(SubredditSearchBox.Text);
+            Request r = new Request { subreddit = "/r/"+SubredditSearchBox.Text};
+            plvm = new PostListViewModel(r);
             Bindings.Update();
         }
 
@@ -89,6 +95,31 @@ App_BackRequested;
                 e.Handled = true;
                 rootFrame.GoBack();
             }
+        }
+
+        private void NextPageClick(object sender, RoutedEventArgs e)
+        {
+            Request r = new Request { after = "t3_"+plvm.Posts.Last().id };
+            plvm = new PostListViewModel(r);
+            Bindings.Update();
+
+            if(PreviousPageButton.Visibility == Visibility.Collapsed)
+            {
+                firstPage = plvm.Posts.First().id;
+                PreviousPageButton.Visibility = Visibility.Visible;
+            }
+            //else if ()
+            {
+                //need to work out the previous button being hidden on page 1
+            }
+            
+        }
+
+        private void PrevPageClick(object sender, RoutedEventArgs e)
+        {
+            Request r = new Request { before = "t3_" + plvm.Posts.First().id };
+            plvm = new PostListViewModel(r);
+            Bindings.Update();
         }
     }
 }

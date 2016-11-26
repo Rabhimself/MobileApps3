@@ -27,8 +27,7 @@ namespace Lurker
         public PostPage()
         {
             this.InitializeComponent();
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
-    App_BackRequested;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
         public CommentListViewModel clvm { get; set; }
@@ -62,7 +61,8 @@ namespace Lurker
             b.Source = rlvm.Comments;
             b.Mode = BindingMode.OneWay;
             RepliesListView.SetBinding( ListView.ItemsSourceProperty, b);
-            RepliesListView.Width = 400; 
+            RepliesListView.Width = 800; 
+
         }
 
         private void App_BackRequested(object sender,
@@ -79,6 +79,18 @@ namespace Lurker
                 e.Handled = true;
                 rootFrame.GoBack();
             }
+        }
+
+        private void Minimize(object sender, RoutedEventArgs e)
+        {
+            StackPanel sp = (StackPanel)((Button)sender).Parent;
+            ListView lv = (ListView)sp.Children.Last();
+            Visibility v = lv.Visibility;
+            if (v.Equals(Visibility.Visible))
+                lv.Visibility = Visibility.Collapsed;
+            else
+                lv.Visibility = Visibility.Visible;
+
         }
     }
 }

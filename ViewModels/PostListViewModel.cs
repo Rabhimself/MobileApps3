@@ -13,30 +13,17 @@ namespace Lurker.ViewModels
     public class PostListViewModel : NotificationBase
     {
         RedditLink t3 = new RedditLink();
-
-        public PostListViewModel()
+        //loads a specific subreddit
+        public PostListViewModel(Request r)
         {
-             
             _SelectedIndex = -1;
-            // Use the model to return a task?
-            init("");
-            
+            init(r);
         }
-        public PostListViewModel(String subreddit)
-        {
-
-            _SelectedIndex = -1;
-            // Use the model to return a task?
-            init(subreddit);
-
-        }
-        public async void init(String subreddit)
+        public async void init(Request r)
         {
             RedditSession reddit = new RedditSession();
-            var cat = RedditSession.cats.HOT;
 
-
-            List<Post> posts = await reddit.getPosts(subreddit,cat);
+            List<Post> posts = await reddit.getPosts(r);
 
             foreach (var post in posts)
             {
