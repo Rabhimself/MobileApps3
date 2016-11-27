@@ -1,5 +1,5 @@
-﻿using Lurker.Data;
-using Lurker.Models;
+﻿using RedditLite.Data;
+using RedditLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lurker.ViewModels
+namespace RedditLite.ViewModels
 {
     public class PostListViewModel : NotificationBase
     {

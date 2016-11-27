@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
-namespace Lurker.Models
+namespace RedditLite.Models
 {
     public class RedditLink
     {

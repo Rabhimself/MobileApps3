@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //https://github.com/johnshew/Minimal-UWP-MVVM-CRUD/blob/master/Simple%20MVVM%20UWP%20with%20CRUD/ViewModels/ViewModelHelpers.cs
-namespace Lurker.ViewModels
+namespace RedditLite.ViewModels
 {
 
     public class NotificationBase : INotifyPropertyChanged

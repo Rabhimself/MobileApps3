@@ -1,4 +1,4 @@
-﻿using Lurker.Models;
+﻿using RedditLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
-namespace Lurker.Data
+namespace RedditLite.Data
 {
     //    /by_id/names
     //    /comments/article
@@ -147,6 +147,8 @@ namespace Lurker.Data
                 string lsubreddit_id = entry.GetNamedString("subreddit_id");
                 string ltitle = entry.GetNamedString("title");
                 string lthumbnail = entry.GetNamedString("thumbnail");
+                if (!lthumbnail.Contains("http://"))
+                    lthumbnail = "ms-appx://ReditLite.App/Assets/default.png";
                 string lpermalink = entry.GetNamedString("permalink");
                 double ldowns = entry.GetNamedNumber("downs");
                 double lnum_comments = entry.GetNamedNumber("num_comments");

@@ -1,12 +1,12 @@
-﻿using Lurker.Models;
+﻿using RedditLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Lurker.Models.RedditLink;
+using static RedditLite.Models.RedditLink;
 
-namespace Lurker.ViewModels
+namespace RedditLite.ViewModels
 {
     public class PostViewModel : NotificationBase<Post>
     {

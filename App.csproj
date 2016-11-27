@@ -7,8 +7,8 @@
     <ProjectGuid>{CA556638-2243-4493-8072-66391CC85AC2}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lurker</RootNamespace>
-    <AssemblyName>Lurker</AssemblyName>
+    <RootNamespace>RedditLite</RootNamespace>
+    <AssemblyName>RedditLite</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -125,6 +125,7 @@
     <None Include="Lurker_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\default.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

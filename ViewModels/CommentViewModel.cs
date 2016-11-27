@@ -1,11 +1,11 @@
-﻿using Lurker.Models;
+﻿using RedditLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lurker.ViewModels
+namespace RedditLite.ViewModels
 {
     public class CommentViewModel : NotificationBase<RedditComment>
     {

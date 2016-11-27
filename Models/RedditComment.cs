@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lurker.Models
+namespace RedditLite.Models
 {
     public class RedditComment
     {

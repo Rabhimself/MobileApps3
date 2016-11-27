@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="0fb79412-225a-4843-b94f-ae753cd7592c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Lurker</DisplayName>
+    <DisplayName>RedditLite</DisplayName>
     <PublisherDisplayName>bryan</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="Lurker.App">
+      EntryPoint="RedditLite.App">
       <uap:VisualElements
-        DisplayName="Lurker"
+        DisplayName="RedditLite"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Lurker"
+        Description="RedditLite"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
