@@ -35,6 +35,8 @@ namespace RedditLite.ViewModels
             foreach (var comment in comments)
             {
                 var np = new CommentViewModel(comment);
+                if (np.body == null)
+                    np.body = "";
                 np.replies = new List<CommentViewModel>();
                 foreach(var reply in comment.replies)
                 {

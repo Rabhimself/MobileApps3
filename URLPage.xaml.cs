@@ -30,8 +30,7 @@ namespace RedditLite
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
-App_BackRequested;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             string url = e.Parameter as string;
             MainWebView.Navigate(new Uri(url));
 
@@ -51,8 +50,7 @@ App_BackRequested;
             }
         }
 
-        private void App_BackRequested(object sender,
-    Windows.UI.Core.BackRequestedEventArgs e)
+        private void App_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
@@ -62,6 +60,7 @@ App_BackRequested;
             // already been handled .
             if (rootFrame.CanGoBack && e.Handled == false)
             {
+                MainWebView.Navigate(new Uri(""));
                 e.Handled = true;
                 rootFrame.GoBack();
             }
