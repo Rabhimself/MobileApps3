@@ -120,6 +120,8 @@ namespace RedditLite.Data
         private List<Post> parseT3Response(String jsonString)
         {
             List<Post> posts = new List<Post>();
+            if (jsonString.Equals(""))
+                return posts;
             JsonObject top = JsonValue.Parse(jsonString).GetObject();
             JsonArray arr = top.GetNamedObject("data").GetNamedArray("children");
             for (uint i = 0; i < arr.Count; i++)

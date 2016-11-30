@@ -27,12 +27,12 @@ namespace RedditLite
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private int pageNum = 0;
+        private int pageNum = 0;   
 
         public MainPage()
         {
             this.InitializeComponent();
-            Request r = new Request {subreddit=""};
+            Request r = new Request { subreddit = "" };
             plvm = new PostListViewModel(r);
             PreviousPageButton.Visibility = Visibility.Collapsed;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
@@ -50,7 +50,7 @@ namespace RedditLite
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
             }
-            
+
         }
 
         public PostListViewModel plvm { get; set; }
@@ -65,7 +65,7 @@ namespace RedditLite
 
         private void Subreddit_Click(object sender, RoutedEventArgs e)
         {
-            Request r = new Request { subreddit = "/r/"+SubredditSearchBox.Text};
+            Request r = new Request { subreddit = "/r/" + SubredditSearchBox.Text };
             plvm = new PostListViewModel(r);
             Bindings.Update();
             pageNum = 0;
@@ -77,19 +77,23 @@ namespace RedditLite
             Frame.Navigate(typeof(URLPage), tag);
         }
 
-        private void App_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame == null)
-                return;
+    
+                Frame rootFrame = Window.Current.Content as Frame;
+                if (rootFrame == null)
+                    return;
 
-            // Navigate back if possible, and if the event has not 
-            // already been handled .
-            if (rootFrame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                rootFrame.GoBack();
-            }
+                // Navigate back if possible, and if the event has not 
+                // already been handled .
+                if (rootFrame.CanGoBack && e.Handled == false)
+                {
+                    e.Handled = true;
+                    rootFrame.GoBack();
+                }
+            
+
+
         }
 
         private void NextPageClick(object sender, RoutedEventArgs e)
@@ -130,5 +134,7 @@ namespace RedditLite
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
         }
+
     }
+
 }

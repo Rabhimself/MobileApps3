@@ -32,6 +32,7 @@ namespace RedditLite
         {
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             string url = e.Parameter as string;
+            url = url.Replace("&amp;", "&");//Reddit URL's are returned with 
             MainWebView.Navigate(new Uri(url));
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -60,7 +61,6 @@ namespace RedditLite
             // already been handled .
             if (rootFrame.CanGoBack && e.Handled == false)
             {
-                MainWebView.Navigate(new Uri(""));
                 e.Handled = true;
                 rootFrame.GoBack();
             }

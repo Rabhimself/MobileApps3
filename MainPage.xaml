@@ -34,7 +34,7 @@
         </StackPanel>
         <ScrollViewer Grid.Row="1">
             <StackPanel>
-                <ListView  x:Name="MainList" ItemsSource="{x:Bind plvm.Posts, Mode=OneWay}" Margin="0,0,10,0"  SelectedIndex="{x:Bind plvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" ItemContainerStyle="{StaticResource ListViewOverride}" >
+                <ListView   x:Name="MainList" ItemsSource="{x:Bind plvm.Posts, Mode=OneWay}" Margin="0,0,10,0"  SelectedIndex="{x:Bind plvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" ItemContainerStyle="{StaticResource ListViewOverride}" >
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:PostViewModel"  >
                             <RelativePanel BorderThickness="0,1,0,0" BorderBrush="Black" Padding="2">
@@ -64,6 +64,7 @@
                                 </StackPanel>
                             </RelativePanel>
                         </DataTemplate>
+
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
