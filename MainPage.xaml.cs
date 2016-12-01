@@ -83,12 +83,6 @@ namespace RedditLite
                 case "CONTROVERSIAL":
                     c = PostCategory.CONTROV;
                     break;
-                case "GILDED":
-                    c = PostCategory.GILDED;
-                    break;
-                case "PROMOTED":
-                    c = PostCategory.PROMO;
-                    break;
                 case "GO":
                     subreddit = SubredditSearchBox.Text;
                     break;

@@ -17,7 +17,7 @@ namespace RedditLite.Data
     //    /random
     //    /top
     //    /sort
-    public enum PostCategory { HOT, NEW, RAND, TOP, CONTROV, FRONT, RISING, GILDED, PROMO };
+    public enum PostCategory { HOT, NEW, RAND, TOP, CONTROV, FRONT, RISING };
     static class PostCategoryExtensions
     {
         public static String getCategory(this PostCategory cat)
@@ -39,10 +39,6 @@ namespace RedditLite.Data
                     return "/top";
                 case PostCategory.CONTROV:
                     return "/controversial";
-                case PostCategory.GILDED:
-                    return "/gilded";
-                case PostCategory.PROMO:
-                    return "/promoted";
                 default:
                     return "/hot";
             }
@@ -136,21 +132,21 @@ namespace RedditLite.Data
             for (uint i = 0; i < arr.Count; i++)
             {
                 JsonObject entry = arr.GetObjectAt(i).GetNamedObject("data");
-                bool lcontest_mode = entry.GetNamedBoolean("contest_mode");
-                bool larchived = entry.GetNamedBoolean("archived");
-                bool lis_self = entry.GetNamedBoolean("is_self");
-                bool lhide_score = entry.GetNamedBoolean("hide_score");
-                bool llocked = entry.GetNamedBoolean("locked");
-                bool lstickied = entry.GetNamedBoolean("stickied");
-                bool lvisited = entry.GetNamedBoolean("visited");
-                bool lclicked = entry.GetNamedBoolean("clicked");
-                bool lsaved = entry.GetNamedBoolean("saved");
-                bool lhidden = entry.GetNamedBoolean("hidden");
-                bool lquarantine = entry.GetNamedBoolean("quarantine");
+                //bool lcontest_mode = entry.GetNamedBoolean("contest_mode");
+                //bool larchived = entry.GetNamedBoolean("archived");
+                //bool lis_self = entry.GetNamedBoolean("is_self");
+                //bool lhide_score = entry.GetNamedBoolean("hide_score");
+                //bool llocked = entry.GetNamedBoolean("locked");
+                //bool lstickied = entry.GetNamedBoolean("stickied");
+                //bool lvisited = entry.GetNamedBoolean("visited");
+                //bool lclicked = entry.GetNamedBoolean("clicked");
+                //bool lsaved = entry.GetNamedBoolean("saved");
+                //bool lhidden = entry.GetNamedBoolean("hidden");
+                //bool lquarantine = entry.GetNamedBoolean("quarantine");
                 bool lover_18 = entry.GetNamedBoolean("over_18");
-                string ldomain = entry.GetNamedString("domain");
+                //string ldomain = entry.GetNamedString("domain");
                 string lsubreddit = entry.GetNamedString("subreddit");
-                string lselftext = entry.GetNamedString("selftext");
+                //string lselftext = entry.GetNamedString("selftext");
                 string lid = entry.GetNamedString("id");
                 string lauthor = entry.GetNamedString("author");
                 string lname = entry.GetNamedString("name");
@@ -161,11 +157,11 @@ namespace RedditLite.Data
                 if (!lthumbnail.Contains("http://"))
                     lthumbnail = "ms-appx://ReditLite.App/Assets/default.png";
                 string lpermalink = entry.GetNamedString("permalink");
-                double ldowns = entry.GetNamedNumber("downs");
+                //double ldowns = entry.GetNamedNumber("downs");
                 double lnum_comments = entry.GetNamedNumber("num_comments");
                 double lscore = entry.GetNamedNumber("score");
                 double lups = entry.GetNamedNumber("ups");
-                double lgilded = entry.GetNamedNumber("gilded");
+                //double lgilded = entry.GetNamedNumber("gilded");
                 double lcreated_utc = entry.GetNamedNumber("created_utc");
                 double lcreated = entry.GetNamedNumber("created");
                 //          object llikes = entry.GetNamedObject("likes");
@@ -186,21 +182,21 @@ namespace RedditLite.Data
                 var post = new Post
                 {
                     permalink = lpermalink,
-                    contest_mode = lcontest_mode,
-                    archived = larchived,
-                    is_self = lis_self,
-                    hide_score = lhide_score,
-                    locked = llocked,
-                    stickied = lstickied,
-                    visited = lvisited,
-                    clicked = lclicked,
-                    saved = lsaved,
-                    hidden = lhidden,
-                    quarantine = lquarantine,
+                   // contest_mode = lcontest_mode,
+                   //archived = larchived,
+                   //is_self = lis_self,
+                   //hide_score = lhide_score,
+                   //locked = llocked,
+                   //stickied = lstickied,
+                   //visited = lvisited,
+                   //clicked = lclicked,
+                   //saved = lsaved,
+                   //hidden = lhidden,
+                   //quarantine = lquarantine,
                     over_18 = lover_18,
-                    domain = ldomain,
+                    //domain = ldomain,
                     subreddit = lsubreddit,
-                    selftext = lselftext,
+                  //  selftext = lselftext,
                     id = lid,
                     author = lauthor,
                     name = lname,
@@ -208,11 +204,11 @@ namespace RedditLite.Data
                     subreddit_id = lsubreddit_id,
                     title = ltitle,
                     thumbnail = lthumbnail,
-                    downs = ldowns,
+                   // downs = ldowns,
                     num_comments = lnum_comments,
                     score = lscore,
                     ups = lups,
-                    gilded = lgilded,
+                  //  gilded = lgilded,
                     created_utc = lcreated_utc,
                     created = lcreated,
                     //                    likes = llikes,

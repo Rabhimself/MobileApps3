@@ -39,8 +39,6 @@
                 <Button Content="TOP" Click="Subreddit_Click"/>
                 <Button Content="RISING" Click="Subreddit_Click"/>
                 <Button Content="CONTROVERSIAL" Click="Subreddit_Click"/>
-                <Button Content="GILDED" Click="Subreddit_Click"/>
-                <Button Content="PROMOTED" Click="Subreddit_Click"/>
             </StackPanel>
         </StackPanel>
 
@@ -72,7 +70,10 @@
                                         <TextBlock Text="Submitted by: " />
                                         <TextBlock Margin="5,0,0,0"  Text="{x:Bind author, Mode=OneWay}" />
                                     </StackPanel>
-
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Subreddit by: " />
+                                        <TextBlock Margin="5,0,0,0"  Text="{x:Bind subreddit, Mode=OneWay}" />
+                                    </StackPanel>
                                 </StackPanel>
                             </RelativePanel>
                         </DataTemplate>
