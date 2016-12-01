@@ -12,7 +12,7 @@ namespace RedditLite.ViewModels
 {
     public class PostListViewModel : NotificationBase
     {
-        RedditLink t3 = new RedditLink();
+        
         //loads a specific subreddit
         public PostListViewModel(Request r)
         {
@@ -27,7 +27,6 @@ namespace RedditLite.ViewModels
 
             foreach (var post in posts)
             {
-
                 var np = new PostViewModel(post);
                 Posts.Add(np);
             }
@@ -50,6 +49,6 @@ namespace RedditLite.ViewModels
         {
             get { return (_SelectedIndex >= 0) ? _Posts[_SelectedIndex] : null; }
         }
-
+        public String subreddit { get; set; }
     }
 }

@@ -27,12 +27,13 @@ namespace RedditLite
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private int pageNum = 0;   
+        private int pageNum = 0;
+        private String subreddit;
 
         public MainPage()
         {
             this.InitializeComponent();
-            Request r = new Request { subreddit = "" };
+            Request r = new Request {};
             plvm = new PostListViewModel(r);
             PreviousPageButton.Visibility = Visibility.Collapsed;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
@@ -65,10 +66,42 @@ namespace RedditLite
 
         private void Subreddit_Click(object sender, RoutedEventArgs e)
         {
-            Request r = new Request { subreddit = "/r/" + SubredditSearchBox.Text };
+            PostCategory c = PostCategory.HOT;
+
+            switch (((Button)sender).Content.ToString())
+            {
+
+                case "NEW":
+                    c = PostCategory.NEW;
+                    break;
+                case "TOP":
+                    c = PostCategory.TOP;
+                    break;
+                case "RISING":
+                    c = PostCategory.RISING;
+                    break;
+                case "CONTROVERSIAL":
+                    c = PostCategory.CONTROV;
+                    break;
+                case "GILDED":
+                    c = PostCategory.GILDED;
+                    break;
+                case "PROMOTED":
+                    c = PostCategory.PROMO;
+                    break;
+                case "GO":
+                    subreddit = SubredditSearchBox.Text;
+                    break;
+            }
+
+            Request r = new Request { subreddit = subreddit, cat = c };
             plvm = new PostListViewModel(r);
             Bindings.Update();
             pageNum = 0;
+        }
+        private void DoRequest()
+        {
+
         }
 
         private void FollowLink(object sender, RoutedEventArgs e)
@@ -79,19 +112,19 @@ namespace RedditLite
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
-    
-                Frame rootFrame = Window.Current.Content as Frame;
-                if (rootFrame == null)
-                    return;
 
-                // Navigate back if possible, and if the event has not 
-                // already been handled .
-                if (rootFrame.CanGoBack && e.Handled == false)
-                {
-                    e.Handled = true;
-                    rootFrame.GoBack();
-                }
-            
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+
+            // Navigate back if possible, and if the event has not 
+            // already been handled .
+            if (rootFrame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
+
 
 
         }

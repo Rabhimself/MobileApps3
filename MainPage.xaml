@@ -28,10 +28,22 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBox Text="Find a subreddit" Height="18" x:Name="SubredditSearchBox"/>
-            <Button Content="GO" Click="Subreddit_Click"/>
+        <StackPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBox Text="Find a subreddit" Height="18" x:Name="SubredditSearchBox"/>
+                <Button Content="GO" Click="Subreddit_Click"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button Content="HOT" Click="Subreddit_Click"/>
+                <Button Content="NEW" Click="Subreddit_Click"/>
+                <Button Content="TOP" Click="Subreddit_Click"/>
+                <Button Content="RISING" Click="Subreddit_Click"/>
+                <Button Content="CONTROVERSIAL" Click="Subreddit_Click"/>
+                <Button Content="GILDED" Click="Subreddit_Click"/>
+                <Button Content="PROMOTED" Click="Subreddit_Click"/>
+            </StackPanel>
         </StackPanel>
+
         <ScrollViewer Grid.Row="1">
             <StackPanel>
                 <ListView   x:Name="MainList" ItemsSource="{x:Bind plvm.Posts, Mode=OneWay}" Margin="0,0,10,0"  SelectedIndex="{x:Bind plvm.SelectedIndex, Mode=TwoWay}" MinWidth="250" ItemContainerStyle="{StaticResource ListViewOverride}" >

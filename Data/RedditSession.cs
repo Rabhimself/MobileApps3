@@ -17,7 +17,38 @@ namespace RedditLite.Data
     //    /random
     //    /top
     //    /sort
-    public enum cats { HOT, NEW, RAND, TOP, CONTROV, FRONT };
+    public enum PostCategory { HOT, NEW, RAND, TOP, CONTROV, FRONT, RISING, GILDED, PROMO };
+    static class PostCategoryExtensions
+    {
+        public static String getCategory(this PostCategory cat)
+        {
+            
+            switch (cat)
+            {
+                case PostCategory.FRONT:
+                    return "/";
+                case PostCategory.HOT:
+                    return "/hot";
+                case PostCategory.NEW:
+                    return "/new";
+                case PostCategory.RAND:
+                    return "/random";
+                case PostCategory.RISING:
+                    return "/rising";
+                case PostCategory.TOP:
+                    return "/top";
+                case PostCategory.CONTROV:
+                    return "/controversial";
+                case PostCategory.GILDED:
+                    return "/gilded";
+                case PostCategory.PROMO:
+                    return "/promoted";
+                default:
+                    return "/hot";
+            }
+        }
+    }
+
     class RedditSession
     {
         private const string reddit = "http://www.reddit.com";
@@ -25,41 +56,19 @@ namespace RedditLite.Data
 
         public async Task<List<Post>> getPosts(Request r)
         {
+            StringBuilder url = new StringBuilder();
+            url.Append(reddit);
+            if (r.subreddit != null)
+                url.Append("/r/" + r.subreddit);
 
-            string cat = null;
-            switch (r.cat)
-            {
-                case cats.FRONT:
-                    cat = "/";
-                    break;
-                case cats.HOT:
-                    cat = "/hot";
-                    break;
-                case cats.NEW:
-                    cat = "/new";
-                    break;
-                case cats.RAND:
-                    cat = "/random";
-                    break;
-                case cats.TOP:
-                    cat = "/top";
-                    break;
-                case cats.CONTROV:
-                    cat = "/controversial";
-                    break;
-                default:
-                    cat = "/hot";
-                    break;
-            }
-            string url = reddit + r.subreddit + cat + ".json";            
+            url.Append(r.cat.getCategory() + ".json");
+
             if (r.before != null)
-                url += "?before=" + r.before;
+                url.Append("?before=" + r.before);
             if (r.after != null)
-                url += "?after=" + r.after;
+                url.Append("?after=" + r.after);
 
-
-
-            Uri requestUri = new Uri(url);
+            Uri requestUri = new Uri(url.ToString());
 
             return parseT3Response(await doRequest(requestUri));
         }
@@ -374,12 +383,6 @@ namespace RedditLite.Data
                 if (t == JsonValueType.Boolean)
                     value = source.GetNamedBoolean(key);
             }
-
-
-
-
-
-
         }
         private void getJsonValue(JsonObject source, string key, out string value)
         {
@@ -393,9 +396,6 @@ namespace RedditLite.Data
                 if (t == JsonValueType.String)
                     value = source.GetNamedString(key);
             }
-
-
-
         }
         private void getJsonValue(JsonObject source, string key, out double value)
         {

@@ -12,6 +12,6 @@ namespace RedditLite.Data
         public String before { get; set; }
         public String after { get; set; }
         public String limit { get; set; }
-        public cats cat { get; set; }
+        public PostCategory cat { get; set; }
     }
 }
