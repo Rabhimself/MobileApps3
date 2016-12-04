@@ -34,6 +34,7 @@ namespace RedditLite
             string url = e.Parameter as string;
             url = url.Replace("&amp;", "&");//Reddit URL's are returned with 
             MainWebView.Navigate(new Uri(url));
+            
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -59,10 +60,10 @@ namespace RedditLite
 
             // Navigate back if possible, and if the event has not 
             // already been handled .
-            if (rootFrame.CanGoBack && e.Handled == false)
+            if (e.Handled == true)
             {
-                e.Handled = true;
-                rootFrame.GoBack();
+          
+                MainWebView.Navigate(new Uri("ms-appx-web:///Assets/blank.html"));
             }
         }
     }

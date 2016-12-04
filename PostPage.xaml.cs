@@ -28,7 +28,7 @@ namespace RedditLite
         public PostPage()
         {
             this.InitializeComponent();
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
         public CommentListViewModel clvm { get; set; }
@@ -53,8 +53,7 @@ namespace RedditLite
                     AppViewBackButtonVisibility.Collapsed;
             }
         }
-        private void App_BackRequested(object sender,
-    Windows.UI.Core.BackRequestedEventArgs e)
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
@@ -122,6 +121,22 @@ namespace RedditLite
             RepliesListView.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width - 100;
             RepliesListView.Height = ApplicationView.GetForCurrentView().VisibleBounds.Height - 150;
             RepliesPanel.IsOpen = true;
+        }
+
+        private void Element_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1);
+        }
+
+        private void Element_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
+        }
+
+        private void FollowLink(object sender, RoutedEventArgs e)
+        {
+            String tag = (String)((FrameworkElement)sender).Tag;
+            Frame.Navigate(typeof(URLPage), tag);
         }
     }
 }

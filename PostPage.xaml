@@ -88,15 +88,39 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="132"></RowDefinition>
+            <RowDefinition Height="8.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" 
                     Grid.Column="0">
-            <TextBlock Text="{x:Bind pvm.subreddit, Mode=OneWay}"></TextBlock>
-            <TextBlock Text="{x:Bind pvm.score, Mode=OneWay}"></TextBlock>
-            <TextBlock Text="{x:Bind pvm.title, Mode=OneWay}"></TextBlock>
-            <TextBlock Text="{x:Bind pvm.selftext, Mode=OneWay}"></TextBlock>
+            <RelativePanel Padding="2">
+                <StackPanel x:Name="asdf" Margin="0,0,15,0"  Background="Gray">
+                    <Image  Tapped="FollowLink" Tag="{x:Bind pvm.url, Mode=OneTime}" Height="128" Width="128" PointerEntered="Element_PointerEntered" PointerExited="Element_PointerExited" >
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding pvm.thumbnail}"/>
+                        </Image.Source>
+                    </Image>
+                </StackPanel>
+                <StackPanel RelativePanel.RightOf="asdf">
+                    <TextBlock TextWrapping="Wrap" Tapped="FollowLink" Tag="{x:Bind pvm.url, Mode=OneTime}" Text="{x:Bind pvm.title, Mode=OneWay}" FontWeight="Bold" PointerEntered="Element_PointerEntered" PointerExited="Element_PointerExited" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Score: " />
+                        <TextBlock Margin="4,0,0,0"  Text="{x:Bind pvm.score, Mode=OneWay}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,0,0,0" Tag="{x:Bind pvm.url, Mode=OneTime}"  Text="{x:Bind pvm.num_comments, Mode=OneWay}" ></TextBlock>
+                        <TextBlock Text=" comments" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Submitted by: " />
+                        <TextBlock Margin="5,0,0,0"  Text="{x:Bind pvm.author, Mode=OneWay}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Subreddit: " />
+                        <TextBlock Margin="5,0,0,0"  Text="{x:Bind pvm.subreddit, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+            </RelativePanel>
         </StackPanel>
         <RelativePanel x:Name="RelPanel" Grid.Row="1" Grid.Column="0">
             <ListView x:Name="MainList" 

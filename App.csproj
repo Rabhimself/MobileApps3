@@ -125,6 +125,7 @@
     <None Include="Lurker_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\blank.html" />
     <Content Include="Assets\default.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
