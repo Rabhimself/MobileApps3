@@ -153,7 +153,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="UniversalMarkdown\UniversalMarkdown.csproj">
+      <Project>{9ffc3b68-696a-4342-a2b8-2eadddef7ff9}</Project>
+      <Name>UniversalMarkdown</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

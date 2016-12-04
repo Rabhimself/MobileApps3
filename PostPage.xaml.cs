@@ -92,8 +92,7 @@ namespace RedditLite
 
         private void TextBlock_Loaded(object sender, RoutedEventArgs e)
         {
-            TextBlock fe = (TextBlock)sender;
-            StackPanel sp = (StackPanel)fe.Parent;
+            StackPanel sp = (StackPanel)((FrameworkElement)sender).Parent;
             ListView lv = (ListView)((StackPanel)sp.Parent).Children.Last();
 
             if (lv.Items.Count > 0)
@@ -122,6 +121,19 @@ namespace RedditLite
             RepliesListView.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width - 100;
             RepliesListView.Height = ApplicationView.GetForCurrentView().VisibleBounds.Height - 150;
             RepliesPanel.IsOpen = true;
+        }
+
+        private void MarkdownTextBlock_OnMarkdownLinkTapped(object sender, UniversalMarkdown.OnMarkdownLinkTappedArgs e)
+        {
+            if(e.Link.Contains("r/"))
+            {
+                string sub = e.Link.Split('/').Last();
+                Frame.Navigate(typeof(MainPage), sub);
+            }
+            else
+            {
+                Frame.Navigate(typeof(URLPage), e.Link);
+            }
         }
     }
 }
