@@ -70,6 +70,14 @@ namespace RedditLite
 
         private void Minimize(object sender, RoutedEventArgs e)
         {
+            if (sender as TextBlock != null)
+            {
+                TextBlock tb = sender as TextBlock;
+                if (tb.Text.Equals("[-] Hide Replies"))
+                    tb.Text = "[+] Show Replies";
+                else tb.Text = "[-] Hide Replies";
+            }
+
             StackPanel sp = (StackPanel)((FrameworkElement)sender).Parent;
             ListView lv = (ListView)((StackPanel)sp.Parent).Children.Last();
             Visibility v = lv.Visibility;
@@ -82,6 +90,7 @@ namespace RedditLite
 
         private void Button_Loaded(object sender, RoutedEventArgs e)
         {
+
             CommentViewModel cvm = (CommentViewModel)((FrameworkElement)sender).DataContext;
             if (cvm == null)
                 ((FrameworkElement)sender).Visibility = Visibility.Collapsed;
@@ -98,7 +107,7 @@ namespace RedditLite
             if (lv.Items.Count > 0)
             {
                 TextBlock tb = new TextBlock();
-                tb.Text = "Hide Replies";
+                tb.Text = "[-] Hide Replies";
                 tb.Margin = new Thickness(0, 10, 0, 0);
                 tb.Tapped += Minimize;
                 sp.Children.Add(tb);

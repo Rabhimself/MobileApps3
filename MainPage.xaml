@@ -62,17 +62,15 @@
                                         <TextBlock Margin="4,0,0,0"  Text="{x:Bind score, Mode=OneWay}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Tapped="CommentsClick" PointerEntered="Element_PointerEntered" PointerExited="Element_PointerExited">
-                                        <TextBlock Text="Comments:" />
+                                        <TextBlock Text="See the " />
                                         <TextBlock Margin="4,0,0,0" Tag="{x:Bind url, Mode=OneTime}"  Text="{x:Bind num_comments, Mode=OneWay}" ></TextBlock>
                                         <TextBlock Text=" comments" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Submitted by: " />
+                                        <TextBlock Text="Submitted by " />
                                         <TextBlock Margin="5,0,0,0"  Text="{x:Bind author, Mode=OneWay}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Subreddit by: " />
-                                        <TextBlock Margin="5,0,0,0"  Text="{x:Bind subreddit, Mode=OneWay}" />
+                                        <TextBlock Text="in r/" />
+                                        <TextBlock Text="{x:Bind subreddit, Mode=OneWay}" />
                                     </StackPanel>
                                 </StackPanel>
                             </RelativePanel>
@@ -81,8 +79,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
-                    <Button  x:Name="PreviousPageButton" Margin="0,0,10,0" Click="PrevPageClick">prev page</Button>
-                    <Button  Click="NextPageClick">next page</Button>
+                    <Button  x:Name="PreviousPageButton" Margin="0,0,10,0" Click="PrevPageClick">Previous page</Button>
+                    <Button  Click="NextPageClick">Next page</Button>
                 </StackPanel>
             </StackPanel>
             

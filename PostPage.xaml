@@ -27,33 +27,37 @@
                         <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
                         <TextBlock Text=" points "/>
                     </StackPanel>
-                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"  Margin="0,0,25,0" Loaded="TextBlock_Loaded"/>
+                    <TextBlock Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap"  Margin="0,10,25,10" Loaded="TextBlock_Loaded"/>
                 </StackPanel>
                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                             <StackPanel>
                                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                        <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
-                                        <TextBlock Text=" points "/>
+                                    <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                                            <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
+                                            <TextBlock Text=" points "/>
+                                        </StackPanel>
+                                        <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,10,25,10"/>
                                     </StackPanel>
-                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0"/>
-                                    <TextBlock Margin="0,10,0,0"  Tapped="Minimize" Loaded="Button_Loaded">Hide Replies</TextBlock>
+                                    <TextBlock Margin="0,10,0,0"  Tapped="Minimize" Loaded="Button_Loaded">[-] Hide Replies</TextBlock>
                                 </StackPanel>
                                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewModels:CommentViewModel" >
                                             <StackPanel>
                                                 <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{x:Bind author, Mode=OneWay}" />
-                                                        <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
-                                                        <TextBlock Text=" points "/>
+                                                    <StackPanel BorderBrush="Black" BorderThickness="0,1,0,0">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{x:Bind author, Mode=OneWay}" />
+                                                            <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
+                                                            <TextBlock Text=" points "/>
+                                                        </StackPanel>
+                                                        <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,10,25,10"/>
                                                     </StackPanel>
-                                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0"/>
-                                                    <TextBlock Margin="0,10,0,0"  Tapped="Minimize" Loaded="Button_Loaded">Hide Replies</TextBlock>
+                                                    <TextBlock Margin="0,10,0,0"  Tapped="Minimize" Loaded="Button_Loaded">[-] Hide Replies</TextBlock>
                                                 </StackPanel>
                                                 <ListView ItemsSource="{x:Bind replies, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewOverride}">
                                                     <ListView.ItemTemplate>
@@ -65,9 +69,9 @@
                                                                         <TextBlock Margin="15,0,0,0" Text="{x:Bind score, Mode=OneWay}" />
                                                                         <TextBlock Text=" points "/>
                                                                     </StackPanel>
-                                                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,0,25,0"/>
+                                                                    <TextBlock  Text="{x:Bind body, Mode=OneWay}"  TextWrapping="Wrap" Margin="0,10,25,10"/>
                                                                 </StackPanel>
-                                                                <TextBlock Tag="{x:Bind id, Mode=OneWay}" Tapped="TextBlock_Tapped" Text="More Comments" />
+                                                                <TextBlock Tag="{x:Bind id, Mode=OneWay}" Tapped="TextBlock_Tapped" Text="More Comments" FontWeight="Bold" />
                                                             </StackPanel>
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
@@ -94,10 +98,10 @@
         <StackPanel Grid.Row="0" 
                     Grid.Column="0">
             <RelativePanel Padding="2">
-                <StackPanel x:Name="asdf" Margin="0,0,15,0"  Background="Gray">
+                <StackPanel x:Name="asdf" Margin="0,0,15,0">
                     <Image  Tapped="FollowLink" Tag="{x:Bind pvm.url, Mode=OneTime}" Height="128" Width="128" PointerEntered="Element_PointerEntered" PointerExited="Element_PointerExited" >
                         <Image.Source>
-                            <BitmapImage UriSource="{Binding pvm.thumbnail}"/>
+                            <BitmapImage UriSource="{x:Bind pvm.thumbnail, Mode=OneTime}" />
                         </Image.Source>
                     </Image>
                 </StackPanel>
@@ -108,16 +112,14 @@
                         <TextBlock Margin="4,0,0,0"  Text="{x:Bind pvm.score, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,0,0,0" Tag="{x:Bind pvm.url, Mode=OneTime}"  Text="{x:Bind pvm.num_comments, Mode=OneWay}" ></TextBlock>
+                        <TextBlock Tag="{x:Bind pvm.url, Mode=OneTime}"  Text="{x:Bind pvm.num_comments, Mode=OneWay}" ></TextBlock>
                         <TextBlock Text=" comments" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Submitted by: " />
                         <TextBlock Margin="5,0,0,0"  Text="{x:Bind pvm.author, Mode=OneWay}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Subreddit: " />
-                        <TextBlock Margin="5,0,0,0"  Text="{x:Bind pvm.subreddit, Mode=OneWay}" />
+                        <TextBlock Text=" in r/" />
+                        <TextBlock   Text="{x:Bind pvm.subreddit, Mode=OneWay}" />
                     </StackPanel>
                 </StackPanel>
             </RelativePanel>
